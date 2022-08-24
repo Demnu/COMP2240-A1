@@ -1,14 +1,16 @@
 import java.io.File; // Import the File class
 import java.io.FileNotFoundException; // Import this class to handle errors
-import java.util.ArrayList;
 import java.util.Scanner; // Import the Scanner class to read text files
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Main {
 
     public static void main(String[] args) {
         // read file get disp value then save processes into arraylist
-        int disp;
-        ArrayList<Process> upcomingProcesses = new ArrayList<>();
+        int disp = 0;
+        Queue<Process> upcomingProcesses = new LinkedList<>();
         try {
             File myObj = new File("data.txt");
             Scanner myReader = new Scanner(myObj);
@@ -34,8 +36,9 @@ public class Main {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-        System.out.println();
-        FCFS fcfs = new FCFS();
+        FCFS fcfs = new FCFS(disp, upcomingProcesses);
+        fcfs.run();
+        System.out.println(fcfs);
     }
 
 }
