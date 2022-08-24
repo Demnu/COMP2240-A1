@@ -36,9 +36,12 @@ public class Main {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-        FCFS fcfs = new FCFS(disp, upcomingProcesses);
+        FCFS fcfs = new FCFS(disp, new LinkedList<Process>(upcomingProcesses));
+        RR rr = new RR(disp, new LinkedList<Process>(upcomingProcesses));
         fcfs.run();
-        System.out.println(fcfs);
+        rr.run();
+        System.out.println(rr);
+
     }
 
 }

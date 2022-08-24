@@ -15,7 +15,7 @@ public abstract class SchedulingAlgorithm {
         while (!upcomingProcesses.isEmpty() || !readyQueue.isEmpty() || isRunningProcess()) {
             // check if processes have arrived, add processes to readyQueue
             while (!upcomingProcesses.isEmpty() && upcomingProcesses.peek().getArrivalTime() <= time) {
-                readyQueue.push(upcomingProcesses.poll());
+                readyQueue.push(new Process(upcomingProcesses.poll()));
             }
             if (isRunningProcess()) {
                 runningProcess.run();

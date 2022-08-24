@@ -6,6 +6,14 @@ public class Process {
     private int waitingTime;
     private int turnaroundTime;
 
+    public Process(Process process) {
+        this.id = process.id;
+        this.waitingTime = 0;
+        this.arrivalTime = process.arrivalTime;
+        this.serviceTime = process.serviceTime;
+        this.timeExecututed = 0;
+    }
+
     public Process(String id, int arrivalTime, int serviceTime) {
         this.id = id;
         this.waitingTime = 0;
@@ -23,7 +31,7 @@ public class Process {
     }
 
     public boolean isProcessFinished() {
-        if (timeExecututed == serviceTime) {
+        if (timeExecututed >= serviceTime) {
             return true;
         }
         return false;
