@@ -1,10 +1,14 @@
 public class Process implements Comparable<Process> {
-    private String id;
-    private int arrivalTime;
-    private int serviceTime;
-    private int timeExecututed;
-    private int waitingTime;
-    private int turnaroundTime;
+    protected String id;
+    protected int arrivalTime;
+    protected int serviceTime;
+    protected int timeExecututed;
+    protected int waitingTime;
+    protected int turnaroundTime;
+    private int timeQuantum;
+
+    public Process() {
+    }
 
     public Process(Process process) {
         this.id = process.id;
@@ -12,6 +16,7 @@ public class Process implements Comparable<Process> {
         this.arrivalTime = process.arrivalTime;
         this.serviceTime = process.serviceTime;
         this.timeExecututed = 0;
+        this.timeQuantum = 4;
     }
 
     public Process(String id, int arrivalTime, int serviceTime) {
@@ -20,6 +25,14 @@ public class Process implements Comparable<Process> {
         this.arrivalTime = arrivalTime;
         this.serviceTime = serviceTime;
         this.timeExecututed = 0;
+        this.timeQuantum = 4;
+
+    }
+
+    public void decreaseQuantumTime() {
+        if (timeQuantum > 2) {
+            timeQuantum--;
+        }
     }
 
     public void computeTurnaroundTime(int finishingTime) {
@@ -59,6 +72,10 @@ public class Process implements Comparable<Process> {
 
     public int getTurnaroundTime() {
         return turnaroundTime;
+    }
+
+    public int getTimeQuantum() {
+        return timeQuantum;
     }
 
     @Override

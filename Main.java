@@ -38,10 +38,13 @@ public class Main {
         }
         FCFS fcfs = new FCFS(disp, new LinkedList<Process>(upcomingProcesses));
         RR rr = new RR(disp, new LinkedList<Process>(upcomingProcesses));
+        NRR nrr = new NRR(disp, new LinkedList<Process>(upcomingProcesses));
         fcfs.run();
         rr.run();
-        System.out.println(fcfs);
-        System.out.println(rr);
+        nrr.run();
+        // System.out.println(fcfs);
+        // System.out.println(rr);
+        System.out.println(nrr);
 
     }
 
