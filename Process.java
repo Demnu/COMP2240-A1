@@ -1,4 +1,4 @@
-public class Process {
+public class Process implements Comparable<Process> {
     private String id;
     private int arrivalTime;
     private int serviceTime;
@@ -62,12 +62,16 @@ public class Process {
     }
 
     @Override
+    public int compareTo(Process p) {
+        return id.compareTo(p.getId());
+
+    }
+
+    @Override
     public String toString() {
         if (turnaroundTime < 10) {
             return id + "      " + turnaroundTime + "               " + waitingTime + "\n";
-
         }
-        // TODO Auto-generated method stub
         return id + "      " + turnaroundTime + "              " + waitingTime + "\n";
     }
 

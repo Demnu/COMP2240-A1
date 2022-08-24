@@ -40,6 +40,7 @@ public class Main {
         RR rr = new RR(disp, new LinkedList<Process>(upcomingProcesses));
         fcfs.run();
         rr.run();
+        System.out.println(fcfs);
         System.out.println(rr);
 
     }

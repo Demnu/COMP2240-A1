@@ -1,3 +1,5 @@
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -8,34 +10,16 @@ public abstract class SchedulingAlgorithm {
     protected Process runningProcess;
     protected Queue<Process> upcomingProcesses;
     protected LinkedList<Process> readyQueue;
-    protected Queue<Process> executedProcesses;
+    protected LinkedList<Process> executedProcesses;
     protected LinkedList<String> dispatchSwitches;
 
-    public void run() {
-        while (!upcomingProcesses.isEmpty() || !readyQueue.isEmpty() || isRunningProcess()) {
-            // check if processes have arrived, add processes to readyQueue
-            while (!upcomingProcesses.isEmpty() && upcomingProcesses.peek().getArrivalTime() <= time) {
-                readyQueue.push(new Process(upcomingProcesses.poll()));
-            }
-            if (isRunningProcess()) {
-                runningProcess.run();
-                if (runningProcess.isProcessFinished()) {
-                    runningProcess.computeTurnaroundTime(time + 1);
-                    executedProcesses.add(runningProcess);
-                    runningProcess = null;
-                }
-                time++;
-                incrementWaitingTimes();
-            } else if (!isRunningProcess() && !readyQueue.isEmpty()) {
-                runDispatch();
-                getNextProcess();
-                dispatchSwitches.add("T" + time + ": " + runningProcess.getId());
-            } else {
-                time++;
-            }
+    public abstract void run();
 
+    public void checkForReadyProcessess() {
+        while (!upcomingProcesses.isEmpty() && upcomingProcesses.peek().getArrivalTime() <= time) {
+            readyQueue.push(new Process(upcomingProcesses.poll()));
         }
-    };
+    }
 
     public void incrementWaitingTimes() {
         for (Process process : readyQueue) {
@@ -84,14 +68,18 @@ public abstract class SchedulingAlgorithm {
 
     @Override
     public String toString() {
+        Collections.sort(executedProcesses);
         String str = algorithmName + ":\n";
         for (String dispatchSwitch : dispatchSwitches) {
             str += dispatchSwitch + "\n";
         }
+        str += "\n";
         str += "Process " + "Turnaround Time " + "Waiting Time\n";
+
         for (Process process : executedProcesses) {
             str += process.toString();
         }
         return str;
     }
+
 }
