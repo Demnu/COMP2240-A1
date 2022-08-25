@@ -1,7 +1,6 @@
 import java.io.File; // Import the File class
 import java.io.FileNotFoundException; // Import this class to handle errors
 import java.util.Scanner; // Import the Scanner class to read text files
-
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -39,12 +38,16 @@ public class Main {
         FCFS fcfs = new FCFS(disp, new LinkedList<Process>(upcomingProcesses));
         RR rr = new RR(disp, new LinkedList<Process>(upcomingProcesses));
         NRR nrr = new NRR(disp, new LinkedList<Process>(upcomingProcesses));
+        int priorityLevel = 6;
+        FB fb = new FB(disp, new LinkedList<Process>(upcomingProcesses), priorityLevel);
         fcfs.run();
         rr.run();
         nrr.run();
-        // System.out.println(fcfs);
-        // System.out.println(rr);
+        fb.run();
+        System.out.println(fcfs);
+        System.out.println(rr);
         System.out.println(nrr);
+        System.out.println(fb);
 
     }
 
