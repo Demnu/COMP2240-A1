@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -40,6 +41,7 @@ public class FB extends SchedulingAlgorithm {
             }
 
         }
+        calculateSummary();
     }
 
     FB(int disp, Queue<Process> upcomingProcesses, int priorityLevel) {
@@ -92,6 +94,23 @@ public class FB extends SchedulingAlgorithm {
                 break;
             }
         }
+    }
+
+    @Override
+    public void calculateSummary() {
+        DecimalFormat df = new DecimalFormat("0.00");
+
+        summary += algorithmName + "\t";
+        double averageTT = 0;
+        double averageWT = 0;
+        for (Process process : executedProcesses) {
+            averageTT += process.getTurnaroundTime();
+            averageWT += process.getWaitingTime();
+        }
+        averageTT = averageTT / executedProcesses.size();
+        averageWT = averageWT / executedProcesses.size();
+        summary += df.format(averageTT) + "\t\t\t  " + df.format(averageWT);
+
     }
 
     @Override

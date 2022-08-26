@@ -1,7 +1,7 @@
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.text.DecimalFormat;
 
 public abstract class SchedulingAlgorithm {
     protected String algorithmName;
@@ -12,6 +12,7 @@ public abstract class SchedulingAlgorithm {
     protected LinkedList<Process> readyQueue;
     protected LinkedList<Process> executedProcesses;
     protected LinkedList<String> dispatchSwitches;
+    protected String summary = "";
 
     public abstract void run();
 
@@ -66,6 +67,26 @@ public abstract class SchedulingAlgorithm {
         return true;
     }
 
+    public void calculateSummary() {
+        DecimalFormat df = new DecimalFormat("0.00");
+
+        summary += algorithmName + "\t\t";
+        double averageTT = 0;
+        double averageWT = 0;
+        for (Process process : executedProcesses) {
+            averageTT += process.getTurnaroundTime();
+            averageWT += process.getWaitingTime();
+        }
+        averageTT = averageTT / executedProcesses.size();
+        averageWT = averageWT / executedProcesses.size();
+        summary += df.format(averageTT) + "\t\t\t  " + df.format(averageWT);
+
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
     @Override
     public String toString() {
         Collections.sort(executedProcesses);
@@ -74,12 +95,11 @@ public abstract class SchedulingAlgorithm {
             str += dispatchSwitch + "\n";
         }
         str += "\n";
-        str += "Process " + "Turnaround Time " + "Waiting Time\n";
+        str += "Process\tTurnaround Time\tWaiting Time\n";
 
         for (Process process : executedProcesses) {
             str += process.toString();
         }
         return str;
     }
-
 }

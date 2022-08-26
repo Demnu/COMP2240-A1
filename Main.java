@@ -1,6 +1,7 @@
 import java.io.File; // Import the File class
 import java.io.FileNotFoundException; // Import this class to handle errors
 import java.util.Scanner; // Import the Scanner class to read text files
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -44,11 +45,18 @@ public class Main {
         rr.run();
         nrr.run();
         fb.run();
+
         System.out.println(fcfs);
         System.out.println(rr);
         System.out.println(nrr);
         System.out.println(fb);
 
+        System.out.println("Summary");
+        System.out.println("Algorithm\tAverage Turnaround Time\t Average Waiting Time");
+        System.out.println(fcfs.getSummary());
+        System.out.println(rr.getSummary());
+        System.out.println(nrr.getSummary());
+        System.out.println(fb.getSummary());
+        System.out.println();
     }
-
 }

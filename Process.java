@@ -78,6 +78,10 @@ public class Process implements Comparable<Process> {
         return timeQuantum;
     }
 
+    public int getWaitingTime() {
+        return waitingTime;
+    }
+
     @Override
     public int compareTo(Process p) {
         return id.compareTo(p.getId());
@@ -86,10 +90,7 @@ public class Process implements Comparable<Process> {
 
     @Override
     public String toString() {
-        if (turnaroundTime < 10) {
-            return id + "      " + turnaroundTime + "               " + waitingTime + "\n";
-        }
-        return id + "      " + turnaroundTime + "              " + waitingTime + "\n";
+        return id + "\t" + turnaroundTime + "\t\t" + waitingTime + "\n";
     }
 
 }

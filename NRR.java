@@ -37,8 +37,8 @@ public class NRR extends SchedulingAlgorithm {
             } else {
                 time++;
             }
-
         }
+        calculateSummary();
     }
 
     NRR(int disp, Queue<Process> upcomingProcesses) {

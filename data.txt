@@ -9,22 +9,22 @@ ExecSize: 10
 END
 
 ID: p2
-Arrive: 2
+Arrive: 0
 ExecSize: 1
 END
 
 ID: p3
-Arrive: 6
+Arrive: 0
 ExecSize: 2
 END
 
 ID: p4
-Arrive: 10
+Arrive: 0
 ExecSize: 1
 END
 
 ID: p5
-Arrive: 32
+Arrive: 0
 ExecSize: 5
 END
 

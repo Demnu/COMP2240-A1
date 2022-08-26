@@ -34,8 +34,8 @@ public class FCFS extends SchedulingAlgorithm {
             } else {
                 time++;
             }
-
         }
+        calculateSummary();
     }
 
     @Override

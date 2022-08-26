@@ -36,8 +36,8 @@ public class RR extends SchedulingAlgorithm {
             } else {
                 time++;
             }
-
         }
+        calculateSummary();
     }
 
     RR(int disp, Queue<Process> upcomingProcesses) {
