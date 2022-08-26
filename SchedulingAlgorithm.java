@@ -1,9 +1,16 @@
+
+/* Name: Harrison Collins
+ * Student Number: c3282352
+ * File: SchedulingAlgorithm.java
+ * Description: Scheduling Algorithm abstract class
+ */
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.text.DecimalFormat;
 
 public abstract class SchedulingAlgorithm {
+    // global variables
     protected String algorithmName;
     protected int time;
     protected int disp;
@@ -14,32 +21,9 @@ public abstract class SchedulingAlgorithm {
     protected LinkedList<String> dispatchSwitches;
     protected String summary = "";
 
-    public abstract void run();
-
-    public void checkForReadyProcessess() {
-        while (!upcomingProcesses.isEmpty() && upcomingProcesses.peek().getArrivalTime() <= time) {
-            readyQueue.push(new Process(upcomingProcesses.poll()));
-        }
-    }
-
-    public void incrementWaitingTimes() {
-        for (Process process : readyQueue) {
-            process.incrementWaitingTime();
-
-        }
-    }
-
+    // constructors
     SchedulingAlgorithm() {
 
-    }
-
-    public abstract void getNextProcess();
-
-    public void runDispatch() {
-        for (int i = 0; i < disp; i++) {
-            incrementWaitingTimes();
-        }
-        time += disp;
     }
 
     SchedulingAlgorithm(int disp, Queue<Process> upcomingProcesses) {
@@ -48,18 +32,38 @@ public abstract class SchedulingAlgorithm {
         this.upcomingProcesses = upcomingProcesses;
     }
 
-    public void setDisp(int disp) {
-        this.disp = disp;
+    // execute implemented algorithm
+    public abstract void run();
+
+    // check for incoming processess
+    // add process to ready queue
+    public void checkForReadyProcessess() {
+        while (!upcomingProcesses.isEmpty() && upcomingProcesses.peek().getArrivalTime() <= time) {
+            readyQueue.push(new Process(upcomingProcesses.poll()));
+        }
     }
 
-    public void setReadyQueue(LinkedList<Process> readyQueue) {
-        this.readyQueue = readyQueue;
+    // increment 1 unit of waiting time to each process in the ready queue
+    public void incrementWaitingTimes() {
+        for (Process process : readyQueue) {
+            process.incrementWaitingTime();
+
+        }
     }
 
-    public void setUpcomingProcesses(Queue<Process> upcomingProcesses) {
-        this.upcomingProcesses = upcomingProcesses;
+    // execute implemented getNextProcess
+    public abstract void getNextProcess();
+
+    // imitate dispatch
+    public void runDispatch() {
+        // increment disp amount of waiting time to each process in the ready queue
+        for (int i = 0; i < disp; i++) {
+            incrementWaitingTimes();
+        }
+        time += disp;
     }
 
+    // returns boolean that checks if there is a running process
     public boolean isRunningProcess() {
         if (runningProcess == null) {
             return false;
@@ -67,6 +71,8 @@ public abstract class SchedulingAlgorithm {
         return true;
     }
 
+    // creates summary in string form showing...
+    // average turnaround time and waiting time
     public void calculateSummary() {
         DecimalFormat df = new DecimalFormat("0.00");
 
@@ -83,13 +89,13 @@ public abstract class SchedulingAlgorithm {
 
     }
 
-    public String getSummary() {
-        return summary;
-    }
-
+    // return string describing details of each executed process
     @Override
     public String toString() {
+        // sort executedProcesses arraylist by alphabetical order
         Collections.sort(executedProcesses);
+
+        // begin string construction
         String str = algorithmName + ":\n";
         for (String dispatchSwitch : dispatchSwitches) {
             str += dispatchSwitch + "\n";
@@ -102,4 +108,23 @@ public abstract class SchedulingAlgorithm {
         }
         return str;
     }
+
+    // setters
+    public void setDisp(int disp) {
+        this.disp = disp;
+    }
+
+    public void setReadyQueue(LinkedList<Process> readyQueue) {
+        this.readyQueue = readyQueue;
+    }
+
+    public void setUpcomingProcesses(Queue<Process> upcomingProcesses) {
+        this.upcomingProcesses = upcomingProcesses;
+    }
+
+    // getters
+    public String getSummary() {
+        return summary;
+    }
+
 }

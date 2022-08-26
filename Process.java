@@ -1,4 +1,10 @@
+/* Name: Harrison Collins
+ * Student Number: c3282352
+ * File: Process.java
+ * Description: Process object
+ */
 public class Process implements Comparable<Process> {
+    // global variables
     protected String id;
     protected int arrivalTime;
     protected int serviceTime;
@@ -7,6 +13,7 @@ public class Process implements Comparable<Process> {
     protected int turnaroundTime;
     private int timeQuantum;
 
+    // constructors
     public Process() {
     }
 
@@ -29,6 +36,7 @@ public class Process implements Comparable<Process> {
 
     }
 
+    // used for FB algorithm
     public void decreaseQuantumTime() {
         if (timeQuantum > 2) {
             timeQuantum--;
@@ -39,10 +47,12 @@ public class Process implements Comparable<Process> {
         turnaroundTime = finishingTime - arrivalTime;
     }
 
+    // increments waiting time by 1 time unit
     public void incrementWaitingTime() {
         waitingTime++;
     }
 
+    // returns boolean depending on if the process is finished
     public boolean isProcessFinished() {
         if (timeExecututed >= serviceTime) {
             return true;
@@ -50,10 +60,26 @@ public class Process implements Comparable<Process> {
         return false;
     }
 
+    // increment timeExecuted by 1 time unit
     public void run() {
         timeExecututed++;
     }
 
+    // used for sorting arraylist
+    @Override
+    public int compareTo(Process p) {
+        // sorts by comparing id's using alphabetical order
+        return id.compareTo(p.getId());
+
+    }
+
+    @Override
+    // return string describing details of each executed process
+    public String toString() {
+        return id + "\t" + turnaroundTime + "\t\t" + waitingTime + "\n";
+    }
+
+    // getters
     public String getId() {
         return id;
     }
@@ -80,17 +106,6 @@ public class Process implements Comparable<Process> {
 
     public int getWaitingTime() {
         return waitingTime;
-    }
-
-    @Override
-    public int compareTo(Process p) {
-        return id.compareTo(p.getId());
-
-    }
-
-    @Override
-    public String toString() {
-        return id + "\t" + turnaroundTime + "\t\t" + waitingTime + "\n";
     }
 
 }
