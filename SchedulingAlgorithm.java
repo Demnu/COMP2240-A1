@@ -1,4 +1,3 @@
-
 /* Name: Harrison Collins
  * Student Number: c3282352
  * File: SchedulingAlgorithm.java

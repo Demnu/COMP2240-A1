@@ -17,7 +17,7 @@ public class Main {
 
         // read file
         try {
-            File myObj = new File("data.txt");
+            File myObj = new File(args[0]);
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
